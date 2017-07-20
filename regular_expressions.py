@@ -195,8 +195,32 @@ assert not re.match(rex, '0spam')
 # EXERCISE:
 # Write a regular expression, that matches 'there are x kittens in the kitchen',
 # with x being any number.
-rex = 'somerex'
-assert re.match(rex, 'there are 5 kittens in the kitchen')
-assert re.match(rex, 'there are 25 kittens in the kitchen')
-assert not re.match(rex, 'there are no kittens in the kitchen')
-assert not re.match(rex, 'there are kittens in the kitchen')
+# rex = 'somerex'
+# assert re.match(rex, 'there are 5 kittens in the kitchen')
+# assert re.match(rex, 'there are 25 kittens in the kitchen')
+# assert not re.match(rex, 'there are no kittens in the kitchen')
+# assert not re.match(rex, 'there are kittens in the kitchen')
+
+# When a string matches a regular expression both re.match and re.search return
+# Match objects which contains information about that particular match:
+rex = '\d+' # find numbers in the string
+match = re.search(rex, 'Some 100 flowers were trampled.')
+assert match.start() == 5
+assert match.end() == 8
+
+# By using grouping, we can extract the matching part of the string directly, using
+# the 'groups' method. It will return the values of the matches as a tuple:
+rex = '(\d+).+(\d+)'
+match = re.search(rex, 'Some 100 flowers made a mess in 5 different cities.')
+assert match.groups() == ('100', '5')
+
+# We can also access the value of the group directly via the 'group' function.
+# The 0th group is the part of the string that matches the whole expression:
+assert match.group(0) == '100 flowers made a mess in 5'
+assert match.group(1) == '100'
+assert match.group(2) == '5'
+
+# EXERCISE:
+# Write a function, that extracts
+
+## TODO
